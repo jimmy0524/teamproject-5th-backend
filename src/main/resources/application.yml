@@ -1,0 +1,41 @@
+server:
+  port: 8000
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/teamProject1?serverTimezone=Asia/Seoul
+    username: root
+    password: binari0915
+
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create #create-??? ?? ??? ???? ??? ??? ??????
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      use-new-id-generator-mappings: false #false->jpa? ????? ???? x
+    show-sql: true #?? ?? ??? ???? create~~ ?
+    properties:
+      hibernate.format_sql: true
+
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+#  spring:
+#    mvc:
+#      hiddenmethod:
+#        filter:
+#          enabled=true:
