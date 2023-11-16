@@ -28,8 +28,8 @@ public class User {
     @Column(nullable = false, length = 100) // 123456 => 해쉬로 변경(비밀번호 암호화)
     private String password;
 
-    @Column(nullable = false, length = 50)
-    private String email;
+    @Column(nullable = false, length = 20)
+    private String nickname;
 
     //	@ColumnDefault("user")
     // DB는 RoleType이라는게 없다
