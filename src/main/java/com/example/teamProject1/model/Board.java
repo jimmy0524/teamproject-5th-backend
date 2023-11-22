@@ -28,11 +28,14 @@ public class Board {
     @Lob // 대용량 데이터
     private String content;
 
-    private int count;
 
     @ManyToOne //글=many , User=One
     @JoinColumn(name = "userId")
     private User user; //DB는 오브젝트를 저장할 수 x, FK자바는 오브젝트를 저장할 수 있다.
+
+    @ManyToOne
+    @JoinColumn(name = "subwayStationId")
+    private SubwayStation subwayStation;
 
     @OneToMany(mappedBy = "board",fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("board")
@@ -41,4 +44,6 @@ public class Board {
 
     @CreationTimestamp
     private Timestamp createDate;
+
+
 }
