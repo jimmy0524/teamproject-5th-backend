@@ -41,15 +41,15 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/","/auth/**","/js/**","/css/**","/image/**")
+                    .antMatchers("/","/auth/**","/js/**","/css/**","/image/**","/api/**")
                     .permitAll()
                     .anyRequest()
-                    .authenticated()
-                .and()
-                    .formLogin()
-                    .loginPage("/auth/loginForm")
-                    .loginProcessingUrl("/auth/loginProc")
-                    .defaultSuccessUrl("/");
+                    .authenticated();
+//                .and()
+//                    .formLogin();
+//                    .loginPage("/auth/loginForm")
+//                    .loginProcessingUrl("/auth/loginProc")
+//                    .defaultSuccessUrl("/");
         return http.build();
     }
 }
