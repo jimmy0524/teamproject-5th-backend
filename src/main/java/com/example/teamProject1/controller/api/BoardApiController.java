@@ -3,6 +3,7 @@ package com.example.teamProject1.controller.api;
 import com.example.teamProject1.Dto.BoardRequestDto;
 import com.example.teamProject1.Dto.ResponseDto;
 import com.example.teamProject1.config.auth.PrincipalDetail;
+import com.example.teamProject1.model.Board;
 import com.example.teamProject1.model.ReReply;
 import com.example.teamProject1.model.Reply;
 import com.example.teamProject1.service.BoardService;
@@ -11,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class BoardApiController {
@@ -110,4 +113,8 @@ public class BoardApiController {
 //        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
 //    }
 
+    @GetMapping("/api/board/popular")
+    public List<Board> getPopularBoardsWithinPastTwelveHours() {
+        return boardService.getPopularBoards();
+    }
 }
