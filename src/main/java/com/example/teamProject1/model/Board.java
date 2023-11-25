@@ -45,5 +45,6 @@ public class Board {
     @CreationTimestamp
     private Timestamp createDate;
 
+    private Integer likeCount=0; //글 추천수
 
 }
