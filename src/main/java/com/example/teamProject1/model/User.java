@@ -29,11 +29,8 @@ public class User {
     @Column(nullable = false, length = 20)
     private String nickname;
 
-    @Column(nullable = false, length = 100, unique = true)
-    private String email;
-
     @Enumerated(EnumType.STRING)
-    private RoleType role; // Enum을 쓰는게 좋다.
+    private RoleType role;
 
     @CreationTimestamp // 시간 자동 입력
     private Timestamp createDate;

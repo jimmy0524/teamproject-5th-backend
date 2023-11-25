@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class BoardService {
     @Autowired
@@ -25,7 +28,7 @@ public class BoardService {
     private ReReplyRepository reReplyRepository;
 
     @Autowired
-    private LikeRepository likeRepository;
+    private LikeBoardRepository likeBoardRepository;
 
     @Autowired
     private ScrapRepository scrapRepository;
@@ -80,7 +83,7 @@ public class BoardService {
                     return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다.");
                 });
         boardRepository.deleteById(id);
-        likeRepository.deleteByBoard(board);
+        likeBoardRepository.deleteByBoard(board);
         scrapRepository.deleteByBoard(board);
     }
 
@@ -193,17 +196,17 @@ public class BoardService {
                     return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
                 });
 
-        if(!likeRepository.existsByUserAndBoard(user,findBoard)){
+        if(!likeBoardRepository.existsByUserAndBoard(user,findBoard)){
             findBoard.setLikeCount(findBoard.getLikeCount() + 1);
             LikeBoard likes= LikeBoard.builder()
                     .user(user)
                     .board(findBoard)
                     .build();
-            likeRepository.save(likes);
+            likeBoardRepository.save(likes);
         }
         else{
             findBoard.setLikeCount(findBoard.getLikeCount() - 1);
-            likeRepository.deleteByUserAndBoard(user,findBoard);
+            likeBoardRepository.deleteByUserAndBoard(user,findBoard);
         }
         boardRepository.save(findBoard);
     }
@@ -256,7 +259,6 @@ public class BoardService {
         }
         boardRepository.save(findBoard);
     }
-
 //    //글 스크랩 테스트
 //    @Transactional
 //    public void scrapBoard(int id) {
@@ -265,8 +267,9 @@ public class BoardService {
 //                .orElseThrow(() -> {
 //                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
 //                });
+//
 //        User user = userRepository.findById(1)
-//                .orElseThrow(() -> {
+//               .orElseThrow(() -> {
 //                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
 //                });
 //
@@ -283,4 +286,20 @@ public class BoardService {
 //        boardRepository.save(findBoard);
 //    }
 
+    //스크랩 뿌려주기
+    @Transactional
+    public List<Board> scrapList(User user) {
+        List<Board> boards=new ArrayList<>();
+        List<Scrap> scraps = scrapRepository.findByUser(user);
+        for(Scrap scrap:scraps){
+            boards.add(scrap.getBoard());
+        }
+        return boards;
+    }
+
+    //모든 긂목록 넘겨주기
+    @Transactional
+    public List<Board> boardAll(){
+        return boardRepository.findAll();
+    }
 }

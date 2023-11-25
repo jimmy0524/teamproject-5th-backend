@@ -5,7 +5,7 @@ import com.example.teamProject1.model.LikeBoard;
 import com.example.teamProject1.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface LikeRepository extends JpaRepository<LikeBoard, Integer> {
+public interface LikeBoardRepository extends JpaRepository<LikeBoard, Integer> {
     boolean existsByUserAndBoard(User user, Board board);
     void deleteByUserAndBoard(User user,Board board);
     void deleteByBoard(Board board);
