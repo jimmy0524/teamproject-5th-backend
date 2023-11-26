@@ -27,7 +27,7 @@ public class SubwayApiController {
 //        return result;
 //    }
 
-    @GetMapping("/api/subway")
+    @GetMapping("/api/subway/search-way")
     public String subway(@RequestBody SubwayLogicDto subwayLogicDto, Model model) {
         int cost = stationService.shortestPath(subwayLogicDto, "cost");
         int dist = stationService.shortestPath(subwayLogicDto, "distance");
