@@ -3,6 +3,7 @@ package com.example.teamProject1.controller.api;
 import com.example.teamProject1.Dto.BoardRequestDto;
 import com.example.teamProject1.Dto.ResponseDto;
 import com.example.teamProject1.config.auth.PrincipalDetail;
+import com.example.teamProject1.model.Board;
 import com.example.teamProject1.model.ReReply;
 import com.example.teamProject1.model.Reply;
 import com.example.teamProject1.service.BoardService;
@@ -12,6 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -146,7 +148,11 @@ public class BoardApiController {
         return map;
     }
 
-
-
-
+    @GetMapping("/api/board/popular") //실시간인기역
+    public Map<String, Object> getPopularBoardsWithinPastTwelveHours(@AuthenticationPrincipal PrincipalDetail principal) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("boards",boardService.getPopularBoards());
+        map.put("principal",principal.getUser());
+        return map;
+    }
 }

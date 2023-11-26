@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -223,17 +225,17 @@ public class BoardService {
 //                .orElseThrow(() -> {
 //                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
 //                });
-//        if(!likeRepository.existsByUserAndBoard(user,findBoard)){
+//        if(!likeBoardRepository.existsByUserAndBoard(user,findBoard)){
 //            findBoard.setLikeCount(findBoard.getLikeCount() + 1);
 //            LikeBoard likes= LikeBoard.builder()
 //                    .user(user)
 //                    .board(findBoard)
 //                    .build();
-//            likeRepository.save(likes);
+//            likeBoardRepository.save(likes);
 //        }
 //        else{
 //            findBoard.setLikeCount(findBoard.getLikeCount() - 1);
-//            likeRepository.deleteByUserAndBoard(user,findBoard);
+//            likeBoardRepository.deleteByUserAndBoard(user,findBoard);
 //        }
 //        boardRepository.save(findBoard);
 //    }
@@ -297,9 +299,17 @@ public class BoardService {
         return boards;
     }
 
-    //모든 긂목록 넘겨주기
+    //모든 글목록 넘겨주기
     @Transactional
     public List<Board> boardAll(){
         return boardRepository.findAll();
+    }
+
+    //실시간인기역
+    @Transactional
+    public List<Board> getPopularBoards() {
+        Integer minLikeCount = 10;
+        Timestamp maxCreateDate = Timestamp.valueOf(LocalDateTime.now().minusHours(12));
+        return boardRepository.findByLikeCountGreaterThanEqualAndCreateDateGreaterThan(minLikeCount, maxCreateDate);
     }
 }

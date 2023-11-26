@@ -7,7 +7,6 @@ import com.example.teamProject1.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -20,7 +19,7 @@ public class SubwayApiController {
 
     //경로 찾은 후 화면
     @GetMapping("/api/subway/search-way")
-    public Map<String, Object> subway(@RequestBody SubwayLogicDto subwayLogicDto, Model model, @AuthenticationPrincipal PrincipalDetail principal) {
+    public Map<String, Object> subway(@RequestBody SubwayLogicDto subwayLogicDto, @AuthenticationPrincipal PrincipalDetail principal) {
         int cost = stationService.shortestPath(subwayLogicDto, "cost");
         int dist = stationService.shortestPath(subwayLogicDto, "distance");
         int time = stationService.shortestPath(subwayLogicDto, "time");
@@ -28,7 +27,7 @@ public class SubwayApiController {
         map.put("cost",cost);
         map.put("dist",dist);
         map.put("time",time);
-        map.put("principal",principal.getUser());
+        map.put("principal", principal.getUser());
         return map;
     }
 
