@@ -21,6 +21,6 @@ public class SubwayStation {
     @Column(nullable = false, length = 100)
     private String name;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private int stationID;
 }
