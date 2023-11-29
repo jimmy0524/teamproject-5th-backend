@@ -44,16 +44,16 @@ public class BoardApiController {
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
-//    @PostMapping("/api/board/{id}/report") // 글 신고
-//    public ResponseDto<Integer> report(@RequestBody Report report, @PathVariable int id, @AuthenticationPrincipal PrincipalDetail principal) {
-//        boardService.reportBoard(report, id, principal.getUser());
-//        return new ResponseDto<>(HttpStatus.OK.value(), 1);
-//    }
-    @PostMapping("/api/board/{id}/report") // 글 신고 테스트
-    public ResponseDto<Integer> report(@RequestBody Report report, @PathVariable int id) {
-        boardService.reportBoard(report, id);
+    @PostMapping("/api/board/{id}/report") // 글 신고
+    public ResponseDto<Integer> report(@RequestBody Report report, @PathVariable int id, @AuthenticationPrincipal PrincipalDetail principal) {
+        boardService.reportBoard(report, id, principal.getUser());
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
+//    @PostMapping("/api/board/{id}/report") // 글 신고 테스트
+//    public ResponseDto<Integer> report(@RequestBody Report report, @PathVariable int id) {
+//        boardService.reportBoard(report, id);
+//        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+//    }
 
     @GetMapping("/api/board/{id}") // 글 상세보기 화면
     public Map<String,Object> findById(@PathVariable int id, @AuthenticationPrincipal PrincipalDetail principal) {
