@@ -35,6 +35,9 @@ public class BoardService {
     @Autowired
     private ScrapRepository scrapRepository;
 
+    @Autowired
+    private ReportRepository reportRepository;
+
     //  글 작성
     @Transactional
     public void writeBoard(BoardRequestDto requestDto, User user){
@@ -89,12 +92,63 @@ public class BoardService {
         scrapRepository.deleteByBoard(board);
     }
 
+//    //글 신고
+//    @Transactional
+//    public void reportBoard(Report report, int id, User user) {
+//        Board board = boardRepository.findById(id)
+//                .orElseThrow(() -> {
+//                    return new IllegalArgumentException("글 신고 실패");
+//                });
+//
+//        if(!reportRepository.existsByUserAndBoard(user,board)){
+//            Report newReport = Report.builder()
+//                    .user(user)
+//                    .content(report.getContent())
+//                    .board(board)
+//                    .build();
+//
+//            reportRepository.save(newReport);
+//        }
+//        else{
+//            throw new IllegalArgumentException("이미 신고한 글입니다.");
+//        }
+//    }
+    //글 신고 테스트
+    @Transactional
+    public void reportBoard(Report report, int id) {
+
+        User user = userRepository.findById(1)
+                .orElseThrow(() -> {
+                    return new IllegalArgumentException("사용자 찾기 실패");
+                });
+
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> {
+                    return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다.");
+                });
+
+        if(!reportRepository.existsByUserAndBoard(user,board)){
+            Report newReport = Report.builder()
+                    .user(user)
+                    .content(report.getContent())
+                    .board(board)
+                    .build();
+
+            reportRepository.save(newReport);
+        }
+        else{
+            throw new IllegalArgumentException("이미 신고한 글입니다.");
+        }
+
+
+    }
+
     // 글 상세보기
     @Transactional(readOnly = true)
     public Board detailBoard(int id) {
         return boardRepository.findById(id)
                 .orElseThrow(()->{
-                    return new IllegalArgumentException("글 상세보기 실패: 아이디를 찾을 수 없습니다.");
+                    return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다.");
                 });
     }
 
@@ -103,7 +157,7 @@ public class BoardService {
     public void writeReply(Reply reply, int boardId, User user) {
         Board board = boardRepository.findById(boardId)
                         .orElseThrow(() -> {
-                            return new IllegalArgumentException("댓글 쓰기 실패");
+                            return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다.");
                         });
 
         Reply newReply = Reply.builder()
@@ -119,12 +173,12 @@ public class BoardService {
 //    public void writeReply(Reply reply, int boardId) {
 //        Board board = boardRepository.findById(boardId)
 //                .orElseThrow(() -> {
-//                    return new IllegalArgumentException("댓글 쓰기 실패");
+//                    return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다.");
 //                });
 //
 //        User user = userRepository.findById(1)
 //                .orElseThrow(() -> {
-//                    return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다.");
+//                    return new IllegalArgumentException("사용자 찾기 실패");
 //                });
 //
 //        Reply newReply = Reply.builder()
@@ -148,7 +202,7 @@ public class BoardService {
     public void writeReReply(ReReply reReply, int replyId, User user) {
         Reply reply=replyRepository.findById(replyId)
                 .orElseThrow(() -> {
-                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+                    return new IllegalArgumentException("댓글 찾기 실패");
                 });
 
         ReReply newReReply=ReReply.builder()
@@ -165,11 +219,11 @@ public class BoardService {
 //    public void writeReReply(ReReply reReply, int id) {
 //        Reply reply=replyRepository.findById(id)
 //                .orElseThrow(() -> {
-//                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+//                    return new IllegalArgumentException("댓글 찾기 실패");
 //                });
 //        User user = userRepository.findById(1)
 //                .orElseThrow(() -> {
-//                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+//                    return new IllegalArgumentException("사용자 찾기 실패");
 //                });
 //        ReReply newReReply=ReReply.builder()
 //                .user(user)
@@ -184,7 +238,7 @@ public class BoardService {
     public void deleteReReply(int id){
         ReReply reReply = reReplyRepository.findById(id)
                 .orElseThrow(() -> {
-                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+                    return new IllegalArgumentException("대댓글 찾기 실패");
                 });
         reReplyRepository.deleteById(id);
     }
@@ -195,7 +249,7 @@ public class BoardService {
 
         Board findBoard = boardRepository.findById(id)
                 .orElseThrow(() -> {
-                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+                    return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다.");
                 });
 
         if(!likeBoardRepository.existsByUserAndBoard(user,findBoard)){
@@ -219,11 +273,11 @@ public class BoardService {
 //
 //        Board findBoard = boardRepository.findById(id)
 //                .orElseThrow(() -> {
-//                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+//                    return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다.");
 //                });
 //        User user = userRepository.findById(1)
 //                .orElseThrow(() -> {
-//                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+//                    return new IllegalArgumentException("사용자 찾기 실패");
 //                });
 //        if(!likeBoardRepository.existsByUserAndBoard(user,findBoard)){
 //            findBoard.setLikeCount(findBoard.getLikeCount() + 1);
@@ -246,7 +300,7 @@ public class BoardService {
 
         Board findBoard = boardRepository.findById(id)
                 .orElseThrow(() -> {
-                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+                    return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다.");
                 });
 
         if(!scrapRepository.existsByUserAndBoard(user,findBoard)){
@@ -267,12 +321,12 @@ public class BoardService {
 //
 //        Board findBoard = boardRepository.findById(id)
 //                .orElseThrow(() -> {
-//                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+//                    return new IllegalArgumentException("글 찾기 실패: 아이디를 찾을 수 없습니다.");
 //                });
 //
 //        User user = userRepository.findById(1)
 //               .orElseThrow(() -> {
-//                    return new IllegalArgumentException("아이디를 찾을 수 없습니다.");
+//                    return new IllegalArgumentException("사용자 찾기 실패");
 //                });
 //
 //        if(!scrapRepository.existsByUserAndBoard(user,findBoard)){

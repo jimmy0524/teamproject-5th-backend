@@ -42,6 +42,9 @@ public class Board {
     @OrderBy("id asc")
     private List<Reply> replies;
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<Report> reports;
+
     @CreationTimestamp
     private Timestamp createDate;
 

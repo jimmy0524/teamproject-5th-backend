@@ -1,6 +1,5 @@
 package com.example.teamProject1.service;
 
-import com.example.teamProject1.Dto.SubwayLogicDto;
 import com.example.teamProject1.model.Station;
 import com.example.teamProject1.model.SubwayStation;
 import com.example.teamProject1.model.*;
@@ -9,7 +8,6 @@ import com.example.teamProject1.repository.LikeStationRepository;
 import com.example.teamProject1.repository.StationRepository;
 import com.example.teamProject1.repository.SubwayStationRepository;
 import com.example.teamProject1.repository.UserRepository;
-import com.example.teamProject1.repository.SubwayStationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,12 +34,12 @@ public class StationService {
 
     //최단거리,최소비용,최소시간
     @Transactional
-    public int shortestPath(SubwayLogicDto subwayLogicDto, String type) {
+    public int shortestPath(String start, String end, String type) {
 
-        SubwayStation startSubwayStation = subwayStationRepository.findByName(subwayLogicDto.getStartStationName())
+        SubwayStation startSubwayStation = subwayStationRepository.findByName(start)
                 .orElseThrow(() -> new IllegalArgumentException("해당 역이 존재하지 않습니다."));
 
-        SubwayStation endSubwayStation = subwayStationRepository.findByName(subwayLogicDto.getEndStationName())
+        SubwayStation endSubwayStation = subwayStationRepository.findByName(end)
                 .orElseThrow(() -> new IllegalArgumentException("해당 역이 존재하지 않습니다."));
 
         List<Station> subways = subwayRepository.findAll();

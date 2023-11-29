@@ -3,9 +3,9 @@ package com.example.teamProject1.controller.api;
 import com.example.teamProject1.Dto.BoardRequestDto;
 import com.example.teamProject1.Dto.ResponseDto;
 import com.example.teamProject1.config.auth.PrincipalDetail;
-import com.example.teamProject1.model.Board;
 import com.example.teamProject1.model.ReReply;
 import com.example.teamProject1.model.Reply;
+import com.example.teamProject1.model.Report;
 import com.example.teamProject1.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +13,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -45,15 +44,28 @@ public class BoardApiController {
         return new ResponseDto<>(HttpStatus.OK.value(), 1);
     }
 
-    @GetMapping("/board/{id}") // 글 상세보기 화면
+//    @PostMapping("/api/board/{id}/report") // 글 신고
+//    public ResponseDto<Integer> report(@RequestBody Report report, @PathVariable int id, @AuthenticationPrincipal PrincipalDetail principal) {
+//        boardService.reportBoard(report, id, principal.getUser());
+//        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+//    }
+    @PostMapping("/api/board/{id}/report") // 글 신고 테스트
+    public ResponseDto<Integer> report(@RequestBody Report report, @PathVariable int id) {
+        boardService.reportBoard(report, id);
+        return new ResponseDto<>(HttpStatus.OK.value(), 1);
+    }
+
+    @GetMapping("/api/board/{id}") // 글 상세보기 화면
     public Map<String,Object> findById(@PathVariable int id, @AuthenticationPrincipal PrincipalDetail principal) {
         Map<String,Object> map = new HashMap<>();
-        map.put("principal",principal.getUser());
         map.put("board", boardService.detailBoard(id));
+        if (principal != null) { // 로그인한 사용자만 추가 정보 제공
+            map.put("principal", principal.getUser());
+        }
         return map;
     }
 
-    @GetMapping("/board/saveForm") // 글 작성 화면
+    @GetMapping("/board/saveForm") // 글 작성 화면 (로그인 한 사용자만)
     public Map<String,Object> saveForm(@AuthenticationPrincipal PrincipalDetail principal) {
         Map<String,Object> map = new HashMap<>();
         map.put("principal",principal.getUser());
@@ -94,9 +106,9 @@ public class BoardApiController {
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
-    @PostMapping(value = "/api/board/{boardId}")  //글 추천
-    public ResponseDto<Integer> like(@PathVariable int boardId, @AuthenticationPrincipal PrincipalDetail principal){
-        boardService.likeBoard(boardId, principal.getUser());
+    @PostMapping(value = "/api/board/{id}")  //글 추천
+    public ResponseDto<Integer> like(@PathVariable int id, @AuthenticationPrincipal PrincipalDetail principal){
+        boardService.likeBoard(id, principal.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
@@ -121,18 +133,20 @@ public class BoardApiController {
     @GetMapping(value = "/") //메인 화면
     public Map<String, Object> main(@AuthenticationPrincipal PrincipalDetail principal){
         Map<String,Object> map = new HashMap<>();
-        map.put("principal",principal.getUser());
+        if (principal != null){
+            map.put("principal",principal.getUser());
+        }
         return map;
     }
 
-    @GetMapping(value = "/api/profile") //프로필 확인 화면
+    @GetMapping(value = "/api/profile") //프로필 확인 화면 (로그인 한 사용자만)
     public Map<String, Object> profile(@AuthenticationPrincipal PrincipalDetail principal){
         Map<String,Object> map = new HashMap<>();
-        map.put("principal",principal.getUser());
+        map.put("principal", principal.getUser());
         return map;
     }
 
-    @GetMapping(value = "/api/scrap") //스크랩한 글 화면
+    @GetMapping(value = "/api/scrap") //스크랩한 글 화면 (로그인 한 사용자만)
     public Map<String, Object> myScrap(@AuthenticationPrincipal PrincipalDetail principal){
         Map<String, Object> map = new HashMap<>();
         map.put("scraps", boardService.scrapList(principal.getUser()));
@@ -144,7 +158,9 @@ public class BoardApiController {
     public Map<String, Object> boardList(@AuthenticationPrincipal PrincipalDetail principal){
         Map<String, Object> map = new HashMap<>();
         map.put("boards",boardService.boardAll());
-        map.put("principal",principal.getUser());
+        if (principal != null) { // 로그인한 사용자만 추가 정보 제공
+            map.put("principal", principal.getUser());
+        }
         return map;
     }
 
@@ -152,7 +168,9 @@ public class BoardApiController {
     public Map<String, Object> getPopularBoardsWithinPastTwelveHours(@AuthenticationPrincipal PrincipalDetail principal) {
         Map<String, Object> map = new HashMap<>();
         map.put("boards",boardService.getPopularBoards());
-        map.put("principal",principal.getUser());
+        if (principal != null) { // 로그인한 사용자만 추가 정보 제공
+            map.put("principal", principal.getUser());
+        }
         return map;
     }
 }

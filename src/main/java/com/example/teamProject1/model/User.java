@@ -1,5 +1,6 @@
 package com.example.teamProject1.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class User {
     @Column(nullable = false, length = 100, unique = true)
     private String username; // 아이디
 
+    @JsonIgnore
     @Column(nullable = false, length = 100) // 123456 => 해쉬로 변경(비밀번호 암호화)
     private String password;
 

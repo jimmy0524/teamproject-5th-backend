@@ -1,6 +1,5 @@
 package com.example.teamProject1.controller.api;
 
-import com.example.teamProject1.Dto.SubwayLogicDto;
 import com.example.teamProject1.Dto.ResponseDto;
 import com.example.teamProject1.config.auth.PrincipalDetail;
 import com.example.teamProject1.service.StationService;
@@ -18,16 +17,18 @@ public class SubwayApiController {
     StationService stationService;
 
     //경로 찾은 후 화면
-    @GetMapping("/api/subway/search-way")
-    public Map<String, Object> subway(@RequestBody SubwayLogicDto subwayLogicDto, @AuthenticationPrincipal PrincipalDetail principal) {
-        int cost = stationService.shortestPath(subwayLogicDto, "cost");
-        int dist = stationService.shortestPath(subwayLogicDto, "distance");
-        int time = stationService.shortestPath(subwayLogicDto, "time");
+    @GetMapping("/api/subway/search-way/{start}/{end}")
+    public Map<String, Object> subway(@PathVariable String start, @PathVariable String end, @AuthenticationPrincipal PrincipalDetail principal) {
+        int cost = stationService.shortestPath(start, end, "cost");
+        int dist = stationService.shortestPath(start, end, "distance");
+        int time = stationService.shortestPath(start, end, "time");
         Map<String, Object> map = new HashMap<>();
         map.put("cost",cost);
         map.put("dist",dist);
         map.put("time",time);
-        map.put("principal", principal.getUser());
+        if (principal != null) { // 로그인한 사용자만 추가 정보 제공
+            map.put("principal", principal.getUser());
+        }
         return map;
     }
 
@@ -47,8 +48,10 @@ public class SubwayApiController {
     public Map<String, Object> subwaySearch(@AuthenticationPrincipal PrincipalDetail principal) {
         Map<String, Object> map = new HashMap<>();
         map.put("stationAll", stationService.stationAll());
-        map.put("stationLike", stationService.likeStationList(principal.getUser()));
-        map.put("principal", principal.getUser());
+        if (principal != null) { // 로그인한 사용자만 추가 정보 제공
+            map.put("stationLike", stationService.likeStationList(principal.getUser()));
+            map.put("principal", principal.getUser());
+        }
         return map;
     }
 }
