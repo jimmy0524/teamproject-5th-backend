@@ -2,6 +2,7 @@ package com.example.teamProject1.controller.api;
 
 import com.example.teamProject1.Dto.ResponseDto;
 import com.example.teamProject1.config.auth.PrincipalDetail;
+import com.example.teamProject1.model.User;
 import com.example.teamProject1.service.StationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,9 @@ public class SubwayApiController {
         map.put("dist",dist);
         map.put("time",time);
         if (principal != null) { // 로그인한 사용자만 추가 정보 제공
-            map.put("principal", principal.getUser());
+            User user = principal.getUser();
+            user.setPassword(null);  // password 필드 제거
+            map.put("principal", user);
         }
         return map;
     }
@@ -50,7 +53,9 @@ public class SubwayApiController {
         map.put("stationAll", stationService.stationAll());
         if (principal != null) { // 로그인한 사용자만 추가 정보 제공
             map.put("stationLike", stationService.likeStationList(principal.getUser()));
-            map.put("principal", principal.getUser());
+            User user = principal.getUser();
+            user.setPassword(null);  // password 필드 제거
+            map.put("principal", user);
         }
         return map;
     }

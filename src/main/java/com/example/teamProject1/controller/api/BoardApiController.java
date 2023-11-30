@@ -6,6 +6,7 @@ import com.example.teamProject1.config.auth.PrincipalDetail;
 import com.example.teamProject1.model.ReReply;
 import com.example.teamProject1.model.Reply;
 import com.example.teamProject1.model.Report;
+import com.example.teamProject1.model.User;
 import com.example.teamProject1.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -60,7 +61,9 @@ public class BoardApiController {
         Map<String,Object> map = new HashMap<>();
         map.put("board", boardService.detailBoard(id));
         if (principal != null) { // 로그인한 사용자만 추가 정보 제공
-            map.put("principal", principal.getUser());
+            User user = principal.getUser();
+            user.setPassword(null);  // password 필드 제거
+            map.put("principal", user);
         }
         return map;
     }
@@ -68,7 +71,9 @@ public class BoardApiController {
     @GetMapping("/board/saveForm") // 글 작성 화면 (로그인 한 사용자만)
     public Map<String,Object> saveForm(@AuthenticationPrincipal PrincipalDetail principal) {
         Map<String,Object> map = new HashMap<>();
-        map.put("principal",principal.getUser());
+        User user = principal.getUser();
+        user.setPassword(null);  // password 필드 제거
+        map.put("principal", user);
         return map;
     }
 
@@ -134,7 +139,9 @@ public class BoardApiController {
     public Map<String, Object> main(@AuthenticationPrincipal PrincipalDetail principal){
         Map<String,Object> map = new HashMap<>();
         if (principal != null){
-            map.put("principal",principal.getUser());
+            User user = principal.getUser();
+            user.setPassword(null);  // password 필드 제거
+            map.put("principal", user);
         }
         return map;
     }
@@ -142,7 +149,9 @@ public class BoardApiController {
     @GetMapping(value = "/api/profile") //프로필 확인 화면 (로그인 한 사용자만)
     public Map<String, Object> profile(@AuthenticationPrincipal PrincipalDetail principal){
         Map<String,Object> map = new HashMap<>();
-        map.put("principal", principal.getUser());
+        User user = principal.getUser();
+        user.setPassword(null);  // password 필드 제거
+        map.put("principal", user);
         return map;
     }
 
@@ -150,7 +159,9 @@ public class BoardApiController {
     public Map<String, Object> myScrap(@AuthenticationPrincipal PrincipalDetail principal){
         Map<String, Object> map = new HashMap<>();
         map.put("scraps", boardService.scrapList(principal.getUser()));
-        map.put("principal",principal.getUser());
+        User user = principal.getUser();
+        user.setPassword(null);  // password 필드 제거
+        map.put("principal", user);
         return map;
     }
 
@@ -159,7 +170,9 @@ public class BoardApiController {
         Map<String, Object> map = new HashMap<>();
         map.put("boards",boardService.boardAll());
         if (principal != null) { // 로그인한 사용자만 추가 정보 제공
-            map.put("principal", principal.getUser());
+            User user = principal.getUser();
+            user.setPassword(null);  // password 필드 제거
+            map.put("principal", user);
         }
         return map;
     }
@@ -169,7 +182,9 @@ public class BoardApiController {
         Map<String, Object> map = new HashMap<>();
         map.put("boards",boardService.getPopularBoards());
         if (principal != null) { // 로그인한 사용자만 추가 정보 제공
-            map.put("principal", principal.getUser());
+            User user = principal.getUser();
+            user.setPassword(null);  // password 필드 제거
+            map.put("principal", user);
         }
         return map;
     }

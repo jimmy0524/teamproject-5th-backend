@@ -45,6 +45,7 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
+                .defaultSuccessUrl("/",false)
                 .permitAll();
         return http.build();
     }
