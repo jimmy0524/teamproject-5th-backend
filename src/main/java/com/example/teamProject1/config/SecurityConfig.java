@@ -38,14 +38,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
         http
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/**","/auth/**","/").permitAll()
+                .antMatchers("/api/**", "/auth/**", "/", "/login").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/",false)
+                .loginPage("/login")
+                .loginProcessingUrl("/api/login") // 로그인 처리 URL 설정
+                .defaultSuccessUrl("/", true)
                 .permitAll();
         return http.build();
     }

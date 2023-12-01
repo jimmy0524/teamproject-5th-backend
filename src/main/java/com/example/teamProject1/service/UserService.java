@@ -1,6 +1,5 @@
 package com.example.teamProject1.service;
 
-import com.example.teamProject1.Dto.UserWithoutPasswordDto;
 import com.example.teamProject1.model.RoleType;
 import com.example.teamProject1.model.User;
 import com.example.teamProject1.repository.UserRepository;
@@ -25,13 +24,6 @@ public class UserService {
         user.setPassword(encPassword);
         user.setRole(RoleType.USER);
         userRepository.save(user);
-    }
-
-    public UserWithoutPasswordDto extracted(User user) {
-        UserWithoutPasswordDto userWithoutPasswordDto = new UserWithoutPasswordDto(
-                user.getId(), user.getUsername(), user.getNickname(), user.getRole(), user.getCreateDate()
-        );
-        return userWithoutPasswordDto;
     }
 
 //    @Transactional

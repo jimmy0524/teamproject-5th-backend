@@ -2,9 +2,7 @@ package com.example.teamProject1.controller.api;
 
 import com.example.teamProject1.Dto.ResponseDto;
 import com.example.teamProject1.config.auth.PrincipalDetail;
-import com.example.teamProject1.model.User;
 import com.example.teamProject1.service.StationService;
-import com.example.teamProject1.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,9 +16,6 @@ public class SubwayApiController {
     @Autowired
     StationService stationService;
 
-    @Autowired
-    UserService userService;
-
     //경로 찾은 후 화면
     @GetMapping("/api/subway/search-way/{start}/{end}")
     public Map<String, Object> subway(@PathVariable String start, @PathVariable String end, @AuthenticationPrincipal PrincipalDetail principal) {
@@ -32,8 +27,7 @@ public class SubwayApiController {
         map.put("dist",dist);
         map.put("time",time);
         if (principal != null) { // 로그인한 사용자만 추가 정보 제공
-            User user = principal.getUser();
-            map.put("principal", userService.extracted(user));
+            map.put("principal", principal.getUser());
         }
         return map;
     }
@@ -56,8 +50,7 @@ public class SubwayApiController {
         map.put("stationAll", stationService.stationAll());
         if (principal != null) { // 로그인한 사용자만 추가 정보 제공
             map.put("stationLike", stationService.likeStationList(principal.getUser()));
-            User user = principal.getUser();
-            map.put("principal", userService.extracted(user));
+            map.put("principal", principal.getUser());
         }
         return map;
     }
