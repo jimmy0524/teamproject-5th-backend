@@ -28,6 +28,8 @@ public class Board {
     @Lob // 대용량 데이터
     private String content;
 
+    @ElementCollection
+    private List<String> imageUrls;
 
     @ManyToOne //글=many , User=One
     @JoinColumn(name = "userId")

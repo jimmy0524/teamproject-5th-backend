@@ -6,7 +6,14 @@ import com.example.teamProject1.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -46,6 +53,7 @@ public class BoardService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 역이 존재하지 않습니다."));
         board.setUser(user);
         board.setSubwayStation(subwayStation);
+        board.setImageUrls(requestDto.getImageUrls());
         boardRepository.save(board);
     }
 //    @Transactional // 글 작성 테스트
@@ -364,4 +372,5 @@ public class BoardService {
         Timestamp maxCreateDate = Timestamp.valueOf(LocalDateTime.now().minusHours(12));
         return boardRepository.findByLikeCountGreaterThanEqualAndCreateDateGreaterThan(minLikeCount, maxCreateDate);
     }
+
 }

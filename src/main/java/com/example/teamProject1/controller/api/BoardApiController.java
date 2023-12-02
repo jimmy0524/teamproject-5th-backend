@@ -7,12 +7,16 @@ import com.example.teamProject1.model.ReReply;
 import com.example.teamProject1.model.Reply;
 import com.example.teamProject1.model.Report;
 import com.example.teamProject1.service.BoardService;
+import com.example.teamProject1.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,8 +25,18 @@ public class BoardApiController {
     @Autowired
     private BoardService boardService;
 
+    @Autowired
+    private FileStorageService fileStorageService;
+
     @PostMapping("/api/board") // 글 작성
-    public ResponseDto<Integer> save(@RequestBody BoardRequestDto requestDto, @AuthenticationPrincipal PrincipalDetail principal) {
+    public ResponseDto<Integer> save(@RequestParam("images") MultipartFile[] images, @RequestBody BoardRequestDto requestDto, @AuthenticationPrincipal PrincipalDetail principal) {
+        List<String> imageUrls = new ArrayList<>();
+
+        for (MultipartFile image : images) {
+            String imageUrl = fileStorageService.storeFile(image);  // 이미지 업로드 로직으로 imageUrl 받아오기
+            imageUrls.add(imageUrl);
+        }
+        requestDto.setImageUrls(imageUrls);
         boardService.writeBoard(requestDto, principal.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
@@ -173,4 +187,5 @@ public class BoardApiController {
         }
         return map;
     }
+
 }
