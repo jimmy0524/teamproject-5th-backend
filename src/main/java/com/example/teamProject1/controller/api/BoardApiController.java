@@ -8,6 +8,8 @@ import com.example.teamProject1.model.Reply;
 import com.example.teamProject1.model.Report;
 import com.example.teamProject1.service.BoardService;
 import com.example.teamProject1.service.FileStorageService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -29,14 +31,21 @@ public class BoardApiController {
     private FileStorageService fileStorageService;
 
     @PostMapping("/api/board") // 글 작성
-    public ResponseDto<Integer> save(@RequestParam("images") MultipartFile[] images, @RequestBody BoardRequestDto requestDto, @AuthenticationPrincipal PrincipalDetail principal) {
+    public ResponseDto<Integer> save(@RequestParam(value="images", required=false) MultipartFile[] images, @RequestParam String boardData, @RequestParam String stationName, @AuthenticationPrincipal PrincipalDetail principal) throws JsonProcessingException {
         List<String> imageUrls = new ArrayList<>();
 
-        for (MultipartFile image : images) {
-            String imageUrl = fileStorageService.storeFile(image);  // 이미지 업로드 로직으로 imageUrl 받아오기
-            imageUrls.add(imageUrl);
+        if (images != null && images.length > 0) {
+            for (MultipartFile image : images) {
+                String imageUrl = fileStorageService.storeFile(image);  // 이미지 업로드 로직으로 imageUrl 받아오기
+                imageUrls.add(imageUrl);
+            }
         }
+        // JSON 문자열을 BoardRequestDto 객체로 변환
+        ObjectMapper objectMapper = new ObjectMapper();
+        BoardRequestDto requestDto = objectMapper.readValue(boardData, BoardRequestDto.class);
         requestDto.setImageUrls(imageUrls);
+        requestDto.setSubwayStationName(stationName);
+
         boardService.writeBoard(requestDto, principal.getUser());
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }

@@ -17,7 +17,7 @@ public class FileStorageService {
 
     @Autowired
     public FileStorageService() {
-        this.fileStorageLocation = Paths.get("uploads")  // 'uploads' 디렉토리에 파일 저장
+        this.fileStorageLocation = Paths.get("src/main/resources/static/images/")  // 'uploads' 디렉토리에 파일 저장
                 .toAbsolutePath().normalize();
 
         try {
@@ -42,7 +42,8 @@ public class FileStorageService {
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
 
-            return fileName;
+            return "http://localhost:8000/images/" + fileName;
+            //"http://172.20.10.2:8000/images/"
         } catch (IOException ex) {
             throw new RuntimeException("파일을 저장하는데 실패하였습니다. " + fileName, ex);
         }

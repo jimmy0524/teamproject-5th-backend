@@ -12,6 +12,14 @@ spring:
     view:
       prefix:
       suffix:
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 100MB
+  resources:
+    static-locations: classpath:/static/, file:/images/
+
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,7 +30,7 @@ spring:
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: update #create-??? ?? ??? ???? ??? ??? ??????
+      ddl-auto: create #create-??? ?? ??? ???? ??? ??? ??????
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false #false->jpa? ????? ???? x
