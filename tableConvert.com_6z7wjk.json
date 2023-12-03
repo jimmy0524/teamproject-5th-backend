@@ -1,0 +1,446 @@
+﻿[
+    {
+        "stationID": "101",
+        "name": "당산"
+    },
+    {
+        "stationID": "102",
+        "name": "신도림"
+    },
+    {
+        "stationID": "103",
+        "name": "구로"
+    },
+    {
+        "stationID": "104",
+        "name": "가산디지털단지"
+    },
+    {
+        "stationID": "105",
+        "name": "독산"
+    },
+    {
+        "stationID": "106",
+        "name": "구로디지털단지"
+    },
+    {
+        "stationID": "107",
+        "name": "신대방"
+    },
+    {
+        "stationID": "108",
+        "name": "당곡"
+    },
+    {
+        "stationID": "109",
+        "name": "신림"
+    },
+    {
+        "stationID": "110",
+        "name": "서울대입구"
+    },
+    {
+        "stationID": "111",
+        "name": "낙성대"
+    },
+    {
+        "stationID": "112",
+        "name": "사당"
+    },
+    {
+        "stationID": "113",
+        "name": "서초"
+    },
+    {
+        "stationID": "114",
+        "name": "교대"
+    },
+    {
+        "stationID": "115",
+        "name": "고속터미널"
+    },
+    {
+        "stationID": "116",
+        "name": "신사"
+    },
+    {
+        "stationID": "117",
+        "name": "옥수"
+    },
+    {
+        "stationID": "118",
+        "name": "약수"
+    },
+    {
+        "stationID": "119",
+        "name": "이태원"
+    },
+    {
+        "stationID": "120",
+        "name": "삼각지"
+    },
+    {
+        "stationID": "121",
+        "name": "효창공원앞"
+    },
+    {
+        "stationID": "122",
+        "name": "공덕"
+    },
+    {
+        "stationID": "123",
+        "name": "여의도"
+    },
+    {
+        "stationID": "201",
+        "name": "합정"
+    },
+    {
+        "stationID": "202",
+        "name": "홍대입구"
+    },
+    {
+        "stationID": "203",
+        "name": "디지털미디어시티"
+    },
+    {
+        "stationID": "204",
+        "name": "연신내"
+    },
+    {
+        "stationID": "205",
+        "name": "불광"
+    },
+    {
+        "stationID": "206",
+        "name": "홍제"
+    },
+    {
+        "stationID": "207",
+        "name": "경복궁"
+    },
+    {
+        "stationID": "208",
+        "name": "안국"
+    },
+    {
+        "stationID": "209",
+        "name": "종로3가"
+    },
+    {
+        "stationID": "210",
+        "name": "종로5가"
+    },
+    {
+        "stationID": "211",
+        "name": "동대문"
+    },
+    {
+        "stationID": "212",
+        "name": "동묘앞"
+    },
+    {
+        "stationID": "213",
+        "name": "신설동"
+    },
+    {
+        "stationID": "214",
+        "name": "제기동"
+    },
+    {
+        "stationID": "215",
+        "name": "청량리"
+    },
+    {
+        "stationID": "216",
+        "name": "회기"
+    },
+    {
+        "stationID": "217",
+        "name": "석계"
+    },
+    {
+        "stationID": "301",
+        "name": "광화문"
+    },
+    {
+        "stationID": "302",
+        "name": "서대문"
+    },
+    {
+        "stationID": "303",
+        "name": "아현"
+    },
+    {
+        "stationID": "304",
+        "name": "대흥"
+    },
+    {
+        "stationID": "305",
+        "name": "대방"
+    },
+    {
+        "stationID": "306",
+        "name": "서울지방병무청"
+    },
+    {
+        "stationID": "307",
+        "name": "신풍"
+    },
+    {
+        "stationID": "308",
+        "name": "보라매공원"
+    },
+    {
+        "stationID": "401",
+        "name": "대림"
+    },
+    {
+        "stationID": "402",
+        "name": "보라매"
+    },
+    {
+        "stationID": "403",
+        "name": "신대방삼거리"
+    },
+    {
+        "stationID": "404",
+        "name": "숭실대입구"
+    },
+    {
+        "stationID": "405",
+        "name": "남성"
+    },
+    {
+        "stationID": "406",
+        "name": "총신대입구"
+    },
+    {
+        "stationID": "407",
+        "name": "내방"
+    },
+    {
+        "stationID": "408",
+        "name": "사평"
+    },
+    {
+        "stationID": "409",
+        "name": "강남"
+    },
+    {
+        "stationID": "410",
+        "name": "역삼"
+    },
+    {
+        "stationID": "411",
+        "name": "선릉"
+    },
+    {
+        "stationID": "412",
+        "name": "선정릉"
+    },
+    {
+        "stationID": "413",
+        "name": "강남구청"
+    },
+    {
+        "stationID": "414",
+        "name": "청담"
+    },
+    {
+        "stationID": "415",
+        "name": "뚝섬유원지"
+    },
+    {
+        "stationID": "416",
+        "name": "건대입구"
+    },
+    {
+        "stationID": "417",
+        "name": "용답"
+    },
+    {
+        "stationID": "501",
+        "name": "종각"
+    },
+    {
+        "stationID": "502",
+        "name": "을지로입구"
+    },
+    {
+        "stationID": "503",
+        "name": "충정로"
+    },
+    {
+        "stationID": "504",
+        "name": "애오개"
+    },
+    {
+        "stationID": "505",
+        "name": "노량진"
+    },
+    {
+        "stationID": "506",
+        "name": "장승배기"
+    },
+    {
+        "stationID": "507",
+        "name": "보라매병원"
+    },
+    {
+        "stationID": "601",
+        "name": "서울역"
+    },
+    {
+        "stationID": "602",
+        "name": "남영"
+    },
+    {
+        "stationID": "603",
+        "name": "용산"
+    },
+    {
+        "stationID": "604",
+        "name": "이촌"
+    },
+    {
+        "stationID": "605",
+        "name": "동작"
+    },
+    {
+        "stationID": "606",
+        "name": "신반포"
+    },
+    {
+        "stationID": "607",
+        "name": "반포"
+    },
+    {
+        "stationID": "608",
+        "name": "논현"
+    },
+    {
+        "stationID": "609",
+        "name": "언주"
+    },
+    {
+        "stationID": "610",
+        "name": "종합운동장"
+    },
+    {
+        "stationID": "611",
+        "name": "잠실새내"
+    },
+    {
+        "stationID": "612",
+        "name": "잠실"
+    },
+    {
+        "stationID": "613",
+        "name": "강동구청"
+    },
+    {
+        "stationID": "614",
+        "name": "천호"
+    },
+    {
+        "stationID": "615",
+        "name": "군자"
+    },
+    {
+        "stationID": "616",
+        "name": "답십리"
+    },
+    {
+        "stationID": "617",
+        "name": "신답"
+    },
+    {
+        "stationID": "618",
+        "name": "용두"
+    },
+    {
+        "stationID": "619",
+        "name": "상왕십리"
+    },
+    {
+        "stationID": "620",
+        "name": "신당"
+    },
+    {
+        "stationID": "621",
+        "name": "을지로4가"
+    },
+    {
+        "stationID": "622",
+        "name": "을지로3가"
+    },
+    {
+        "stationID": "701",
+        "name": "명동"
+    },
+    {
+        "stationID": "702",
+        "name": "충무로"
+    },
+    {
+        "stationID": "703",
+        "name": "신금호"
+    },
+    {
+        "stationID": "704",
+        "name": "행당"
+    },
+    {
+        "stationID": "705",
+        "name": "왕십리"
+    },
+    {
+        "stationID": "706",
+        "name": "성수"
+    },
+    {
+        "stationID": "707",
+        "name": "어린이대공원"
+    },
+    {
+        "stationID": "801",
+        "name": "남부터미널"
+    },
+    {
+        "stationID": "802",
+        "name": "양재"
+    },
+    {
+        "stationID": "803",
+        "name": "매봉"
+    },
+    {
+        "stationID": "804",
+        "name": "학동"
+    },
+    {
+        "stationID": "805",
+        "name": "압구정로데오"
+    },
+    {
+        "stationID": "806",
+        "name": "서울숲"
+    },
+    {
+        "stationID": "901",
+        "name": "방배"
+    },
+    {
+        "stationID": "902",
+        "name": "신용산"
+    },
+    {
+        "stationID": "903",
+        "name": "동대입구"
+    },
+    {
+        "stationID": "904",
+        "name": "동대문역사문화공원"
+    }
+]
